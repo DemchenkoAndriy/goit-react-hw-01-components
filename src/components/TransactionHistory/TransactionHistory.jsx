@@ -12,11 +12,11 @@ export const TransactionHistory = ({ items }) => (
     </thead>
 
     <tbody>
-      {items.map(item => (
-        <tr class={css.item} key={item.id}>
-          <td class={css.item_value}>{item.type}</td>
-          <td class={css.item_value}>{item.amount}</td>
-          <td class={css.item_value}>{item.currency}</td>
+      {items.map(({ id, type, amount, currency }) => (
+        <tr class={css.item} key={id}>
+          <td class={css.item_value}>{type}</td>
+          <td class={css.item_value}>{amount}</td>
+          <td class={css.item_value}>{currency}</td>
         </tr>
       ))}
     </tbody>
@@ -24,5 +24,12 @@ export const TransactionHistory = ({ items }) => (
 );
 
 TransactionHistory.propTypes = {
-  items: PropTypes.array.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.any,
+      type: PropTypes.string,
+      amount: PropTypes.string,
+      currency: PropTypes.string,
+    })
+  ).isRequired,
 };
